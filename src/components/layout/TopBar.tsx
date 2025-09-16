@@ -70,10 +70,14 @@ const TopBar: React.FC<TopBarProps> = ({
 
   return (
     <header
-      className="fixed top-0 left-0 bg-slate-900/95 backdrop-blur-sm shadow-lg border-b border-slate-700/50 z-20 h-16 transition-all duration-300"
-      style={{
-        right: isCollapsed ? '72px' : isSidebarOpen ? '288px' : '72px'
-      }}>
+      className={`fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm shadow-lg border-b border-slate-700/50 z-20 h-16 transition-all duration-300 ${
+        // Desktop: adjust based on sidebar state
+        isCollapsed
+          ? 'lg:right-[72px]'
+          : isSidebarOpen
+            ? 'lg:right-[288px]'
+            : 'lg:right-[72px]'
+      }`}>
       <div className="flex items-center justify-between h-full">
         {/* Left side - Mobile Toggle, Breadcrumb and Collapse button */}
         <div className="flex mr-2">
@@ -100,7 +104,9 @@ const TopBar: React.FC<TopBarProps> = ({
               className="p-2 rounded-md hover:bg-slate-700/50 transition-colors ml-4 lg:hidden">
               <List size={20} className="text-gray-300" />
             </button>
-            <Breadcrumb />
+            <div className="hidden lg:block">
+              <Breadcrumb />
+            </div>
           </div>
         </div>
 

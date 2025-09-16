@@ -18,7 +18,13 @@ const DashboardLayout = () => {
   });
 
   const handleSideBarToggle = () => {
-    setIsSidebarOpen(prev => !prev);
+    if (window.innerWidth < 1024) {
+      // On mobile, always open fully (not collapsed)
+      setIsSidebarOpen(prev => !prev);
+      setIsSidebarCollapsed(false);
+    } else {
+      setIsSidebarOpen(prev => !prev);
+    }
   };
 
   const handleSideBarCollapse = () => {
@@ -44,12 +50,16 @@ const DashboardLayout = () => {
   return (
     <div className="bg-gradient-to-br from-slate-800 to-gray-900 rtl min-h-screen" dir="rtl">
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} isCollapsed={isSidebarCollapsed} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        isCollapsed={isSidebarCollapsed}
+        onNavigate={() => setIsSidebarOpen(false)}
+      />
 
       {/* Mobile overlay */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-5 lg:hidden"
           onClick={handleSideBarToggle}
         />
       )}
@@ -57,6 +67,10 @@ const DashboardLayout = () => {
       {/* Main content */}
       <div
         className={`transition-all duration-300 ${
+          // Mobile: no margin (centered)
+          'mr-0'
+        } ${
+          // Desktop: margin based on sidebar state
           isSidebarCollapsed
             ? 'lg:mr-18'
             : isSidebarOpen
@@ -73,7 +87,7 @@ const DashboardLayout = () => {
         />
 
         <main className="pt-16 min-h-screen">
-          <div className="py-8 px-4 pl-8">
+          <div className="py-8 px-4 lg:pl-8">
             <Outlet />
           </div>
         </main>

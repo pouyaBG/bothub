@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Check, Warning } from 'phosphor-react';
+import Button from '../ui/button';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -36,20 +37,20 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     }
   };
 
-  const getButtonColor = () => {
+  const getButtonVariant = () => {
     switch (type) {
       case 'success':
-        return 'bg-green-600 hover:bg-green-700';
+        return 'success' as const;
       case 'info':
-        return 'bg-blue-600 hover:bg-blue-700';
+        return 'primary' as const;
       case 'warning':
       default:
-        return 'bg-amber-600 hover:bg-amber-700';
+        return 'warning' as const;
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-md">
       <div className="bg-slate-800 rounded-xl shadow-2xl border border-slate-700 max-w-md w-full mx-4 animate-in fade-in duration-200">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-700">
@@ -71,19 +72,21 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end space-x-3 space-x-reverse p-6 border-t border-slate-700">
-          <button
+        <div className="flex items-center justify-end gap-4 p-6 border-t border-slate-700">
+          <Button
+            variant="secondary"
+            size="md"
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-gray-300 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
           >
             {cancelText}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant={getButtonVariant()}
+            size="md"
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-medium text-white rounded-lg transition-colors ${getButtonColor()}`}
           >
             {confirmText}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

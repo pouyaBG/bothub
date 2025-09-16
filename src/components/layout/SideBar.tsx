@@ -58,9 +58,10 @@ const menuItems: MenuItem[] = [
 interface SidebarProps {
   isOpen: boolean;
   isCollapsed: boolean;
+  onNavigate?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed, onNavigate }) => {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const location = useLocation();
 
@@ -123,6 +124,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed }) => {
             ? 'bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm'
             : 'text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm'
         } ${level > 0 ? 'mr-5 text-sm bg-slate-800/50' : 'shadow-sm'}`}
+        onClick={() => {
+          // Close sidebar on mobile when navigating
+          if (window.innerWidth < 1024 && onNavigate) {
+            onNavigate();
+          }
+        }}
       >
         <div className={`flex items-center ${isCollapsed ? 'justify-center w-full' : 'flex-1'}`}>
           <IconComponent size={20} className={`flex-shrink-0 ${isCollapsed ? '' : 'ml-3'}`} />
@@ -160,8 +167,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed }) => {
 
   return (
     <div
-      className={`fixed right-0 top-0 h-full bg-gradient-to-b from-slate-900 to-slate-800 backdrop-blur-sm shadow-2xl border-l border-slate-700/30 transition-all duration-300 z-30 ${
-        isCollapsed ? 'w-18' : isOpen ? 'w-72' : 'w-18'
+      className={`fixed right-0 bg-gradient-to-b from-slate-900 to-slate-800 backdrop-blur-sm shadow-2xl border-l border-slate-700/30 transition-all duration-300 ${
+        // Mobile: completely hide when closed, show when open
+        isOpen ? 'translate-x-0 w-72' : 'translate-x-full w-72'
+      } top-16 h-[calc(100vh-4rem)] z-10 lg:top-0 lg:h-full lg:z-30 lg:translate-x-0 ${
+        // Desktop: normal collapse behavior
+        isCollapsed ? 'lg:w-18' : 'lg:w-72'
       }`}
     >
       <div className="flex flex-col h-full">

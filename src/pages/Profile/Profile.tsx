@@ -6,9 +6,11 @@ import {
   Phone,
   Eye,
   EyeSlash,
-  MapPinLine,
+  AtSign,
 } from "phosphor-react";
 import ConfirmationModal from "../../components/common/ConfirmationModal";
+import Button from "../../components/ui/button";
+import Input from "../../components/ui/input";
 
 interface UserProfile {
   name: string;
@@ -194,77 +196,45 @@ const Profile: React.FC = () => {
 
             {/* Form Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  نام و نام خانوادگی
-                </label>
-                <div className="relative">
-                  <User
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type="text"
-                    value={profile.name}
-                    onChange={(e) =>
-                      handleProfileChange("name", e.target.value)
-                    }
-                    className="w-full pr-10 pl-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="نام و نام خانوادگی خود را وارد کنید"
-                  />
-                </div>
-              </div>
+              <Input
+                label="نام و نام خانوادگی"
+                type="text"
+                value={profile.name}
+                onChange={(e) => handleProfileChange("name", e.target.value)}
+                placeholder="نام و نام خانوادگی خود را وارد کنید"
+                leftIcon={<User size={20} />}
+              />
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  شماره تلفن
-                </label>
-                <div className="relative">
-                  <Phone
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type="tel"
-                    value={profile.phone}
-                    onChange={(e) =>
-                      handleProfileChange("phone", e.target.value)
-                    }
-                    className="w-full pr-10 pl-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="شماره تلفن خود را وارد کنید"
-                  />
-                </div>
-              </div>
+              <Input
+                label="شماره تلفن"
+                type="tel"
+                value={profile.phone}
+                onChange={(e) => handleProfileChange("phone", e.target.value)}
+                placeholder="شماره تلفن خود را وارد کنید"
+                leftIcon={<Phone size={20} />}
+              />
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ایمیل
-                </label>
-                <div className="relative">
-                  <MapPinLine
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type="email"
-                    value={profile.email}
-                    onChange={(e) =>
-                      handleProfileChange("email", e.target.value)
-                    }
-                    className="w-full pr-10 pl-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="ایمیل خود را وارد کنید"
-                  />
-                </div>
+                <Input
+                  label="ایمیل"
+                  type="email"
+                  value={profile.email}
+                  onChange={(e) => handleProfileChange("email", e.target.value)}
+                  placeholder="ایمیل خود را وارد کنید"
+                  leftIcon={<AtSign size={20} />}
+                />
               </div>
             </div>
 
             {/* Save Button */}
             <div className="flex justify-end">
-              <button
+              <Button
+                variant="primary"
+                size="lg"
                 onClick={handleSavePersonalInfo}
-                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+              >
                 ذخیره تغییرات
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -274,100 +244,43 @@ const Profile: React.FC = () => {
             {/* Password Fields Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Current Password */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  رمز عبور فعلی
-                </label>
-                <div className="relative">
-                  <Lock
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type={showPasswords.current ? "text" : "password"}
-                    value={passwords.currentPassword}
-                    onChange={(e) =>
-                      handlePasswordChange("currentPassword", e.target.value)
-                    }
-                    className="w-full pr-10 pl-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="رمز عبور فعلی را وارد کنید"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility("current")}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
-                    {showPasswords.current ? (
-                      <EyeSlash size={20} />
-                    ) : (
-                      <Eye size={20} />
-                    )}
-                  </button>
-                </div>
-              </div>
+              <Input
+                label="رمز عبور فعلی"
+                type={showPasswords.current ? "text" : "password"}
+                value={passwords.currentPassword}
+                onChange={(e) => handlePasswordChange("currentPassword", e.target.value)}
+                placeholder="رمز عبور فعلی را وارد کنید"
+                leftIcon={<Lock size={20} />}
+                rightIcon={showPasswords.current ? <EyeSlash size={20} /> : <Eye size={20} />}
+                onRightIconClick={() => togglePasswordVisibility("current")}
+                size="lg"
+              />
 
               {/* New Password */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  رمز عبور جدید
-                </label>
-                <div className="relative">
-                  <Lock
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type={showPasswords.new ? "text" : "password"}
-                    value={passwords.newPassword}
-                    onChange={(e) =>
-                      handlePasswordChange("newPassword", e.target.value)
-                    }
-                    className="w-full pr-10 pl-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="رمز عبور جدید را وارد کنید"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility("new")}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
-                    {showPasswords.new ? (
-                      <EyeSlash size={20} />
-                    ) : (
-                      <Eye size={20} />
-                    )}
-                  </button>
-                </div>
-              </div>
+              <Input
+                label="رمز عبور جدید"
+                type={showPasswords.new ? "text" : "password"}
+                value={passwords.newPassword}
+                onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
+                placeholder="رمز عبور جدید را وارد کنید"
+                leftIcon={<Lock size={20} />}
+                rightIcon={showPasswords.new ? <EyeSlash size={20} /> : <Eye size={20} />}
+                onRightIconClick={() => togglePasswordVisibility("new")}
+                size="lg"
+              />
 
               {/* Confirm New Password */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  تایید رمز عبور جدید
-                </label>
-                <div className="relative">
-                  <Lock
-                    size={20}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  />
-                  <input
-                    type={showPasswords.confirm ? "text" : "password"}
-                    value={passwords.confirmPassword}
-                    onChange={(e) =>
-                      handlePasswordChange("confirmPassword", e.target.value)
-                    }
-                    className="w-full pr-10 pl-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    placeholder="رمز عبور جدید را مجدداً وارد کنید"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => togglePasswordVisibility("confirm")}
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
-                    {showPasswords.confirm ? (
-                      <EyeSlash size={20} />
-                    ) : (
-                      <Eye size={20} />
-                    )}
-                  </button>
-                </div>
-              </div>
+              <Input
+                label="تایید رمز عبور جدید"
+                type={showPasswords.confirm ? "text" : "password"}
+                value={passwords.confirmPassword}
+                onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
+                placeholder="رمز عبور جدید را مجدداً وارد کنید"
+                leftIcon={<Lock size={20} />}
+                rightIcon={showPasswords.confirm ? <EyeSlash size={20} /> : <Eye size={20} />}
+                onRightIconClick={() => togglePasswordVisibility("confirm")}
+                size="lg"
+              />
 
               {/* Password Requirements */}
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
@@ -396,16 +309,18 @@ const Profile: React.FC = () => {
 
             {/* Save Button */}
             <div className="flex justify-end pt-4 border-t border-gray-200">
-              <button
+              <Button
+                variant="primary"
+                size="xl"
                 onClick={handleSavePassword}
                 disabled={
                   !passwords.currentPassword ||
                   !passwords.newPassword ||
                   !passwords.confirmPassword
                 }
-                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 disabled:hover:scale-100 shadow-md hover:shadow-lg">
+              >
                 تغییر رمز عبور
-              </button>
+              </Button>
             </div>
           </div>
         )}
