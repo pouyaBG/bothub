@@ -7,6 +7,15 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
+const UserManagement = lazy(() => import("../pages/UserManagement/UserManagement"));
+const Messaging = lazy(() => import("../pages/Messaging/Messaging"));
+const Payments = lazy(() => import("../pages/Payments/Payments"));
+const BotSettings = lazy(() => import("../pages/BotSettings/BotSettings"));
+const PanelSettings = lazy(() => import("../pages/PanelSettings/PanelSettings"));
+const Plugins = lazy(() => import("../pages/Plugins/Plugins"));
+const Channels = lazy(() => import("../pages/Channels/Channels"));
+const ActivityLogs = lazy(() => import("../pages/ActivityLogs/ActivityLogs"));
+const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
 
 const AppRouter = () => {
   return (
@@ -39,10 +48,114 @@ const AppRouter = () => {
             }
           />
 
-          {/* Placeholder routes for menu items */}
+          {/* User Management Routes */}
+          <Route
+            path="user-management"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <UserManagement />
+              </Suspense>
+            }
+          />
+          <Route
+            path="user-management/list"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست کاربران</h1></div>}
+          />
+          <Route
+            path="user-management/add"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن کاربر</h1></div>}
+          />
+          <Route
+            path="user-management/permissions"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">دسترسی‌ها و ادمین‌ها</h1></div>}
+          />
+
+          {/* Messaging Routes */}
+          <Route
+            path="messaging"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <Messaging />
+              </Suspense>
+            }
+          />
+          <Route
+            path="messaging/new"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">ارسال پیام جدید</h1></div>}
+          />
+          <Route
+            path="messaging/history"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تاریخچه پیام‌ها</h1></div>}
+          />
+
+          {/* Payments Routes */}
+          <Route
+            path="payments"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <Payments />
+              </Suspense>
+            }
+          />
+          <Route
+            path="payments/transactions"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تراکنش‌ها</h1></div>}
+          />
+          <Route
+            path="payments/settings"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تنظیمات پرداخت</h1></div>}
+          />
+
+          {/* Bot Settings Routes */}
+          <Route
+            path="bot-settings"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <BotSettings />
+              </Suspense>
+            }
+          />
+          <Route
+            path="bot-settings/general"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تنظیمات عمومی</h1></div>}
+          />
+          <Route
+            path="bot-settings/security"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">امنیت</h1></div>}
+          />
+
+          {/* Panel Settings Route */}
+          <Route
+            path="panel-settings"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <PanelSettings />
+              </Suspense>
+            }
+          />
+
+          {/* Plugins Routes */}
+          <Route
+            path="plugins"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <Plugins />
+              </Suspense>
+            }
+          />
+          <Route
+            path="plugins/list"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست پلاگین‌ها</h1></div>}
+          />
+          <Route
+            path="plugins/add"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن پلاگین</h1></div>}
+          />
+
+          {/* Bots Routes */}
           <Route
             path="bots"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">صفحه بات‌ها</h1></div>}
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">مدیریت بات‌ها</h1></div>}
           />
           <Route
             path="bots/list"
@@ -52,25 +165,49 @@ const AppRouter = () => {
             path="bots/add"
             element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن بات جدید</h1></div>}
           />
+
+          {/* Channels Routes */}
           <Route
-            path="users"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">صفحه کاربران</h1></div>}
+            path="channels"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <Channels />
+              </Suspense>
+            }
           />
           <Route
-            path="users/list"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست کاربران</h1></div>}
+            path="channels/list"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">چنل‌ها و گروه‌ها</h1></div>}
           />
           <Route
-            path="users/add"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن کاربر</h1></div>}
+            path="channels/mandatory-join"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">جوین اجباری</h1></div>}
           />
-          <Route
-            path="settings"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تنظیمات</h1></div>}
-          />
+
+          {/* Reports Route */}
           <Route
             path="reports"
             element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">گزارشات</h1></div>}
+          />
+
+          {/* Activity Logs Route */}
+          <Route
+            path="activity-logs"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <ActivityLogs />
+              </Suspense>
+            }
+          />
+
+          {/* Notifications Route */}
+          <Route
+            path="notifications"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <Notifications />
+              </Suspense>
+            }
           />
           <Route
             path="profile"
