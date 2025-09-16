@@ -6,7 +6,7 @@ import {
   Phone,
   Eye,
   EyeSlash,
-  AtSign,
+  Asterisk,
 } from "phosphor-react";
 import ConfirmationModal from "../../components/common/ConfirmationModal";
 import Button from "../../components/ui/button";
@@ -221,7 +221,7 @@ const Profile: React.FC = () => {
                   value={profile.email}
                   onChange={(e) => handleProfileChange("email", e.target.value)}
                   placeholder="ایمیل خود را وارد کنید"
-                  leftIcon={<AtSign size={20} />}
+                  leftIcon={<Asterisk size={20} />}
                 />
               </div>
             </div>
@@ -231,8 +231,7 @@ const Profile: React.FC = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={handleSavePersonalInfo}
-              >
+                onClick={handleSavePersonalInfo}>
                 ذخیره تغییرات
               </Button>
             </div>
@@ -248,12 +247,20 @@ const Profile: React.FC = () => {
                 label="رمز عبور فعلی"
                 type={showPasswords.current ? "text" : "password"}
                 value={passwords.currentPassword}
-                onChange={(e) => handlePasswordChange("currentPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("currentPassword", e.target.value)
+                }
                 placeholder="رمز عبور فعلی را وارد کنید"
                 leftIcon={<Lock size={20} />}
-                rightIcon={showPasswords.current ? <EyeSlash size={20} /> : <Eye size={20} />}
+                rightIcon={
+                  showPasswords.current ? (
+                    <EyeSlash size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )
+                }
                 onRightIconClick={() => togglePasswordVisibility("current")}
-                size="lg"
+                inputSize="lg"
               />
 
               {/* New Password */}
@@ -261,12 +268,16 @@ const Profile: React.FC = () => {
                 label="رمز عبور جدید"
                 type={showPasswords.new ? "text" : "password"}
                 value={passwords.newPassword}
-                onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("newPassword", e.target.value)
+                }
                 placeholder="رمز عبور جدید را وارد کنید"
                 leftIcon={<Lock size={20} />}
-                rightIcon={showPasswords.new ? <EyeSlash size={20} /> : <Eye size={20} />}
+                rightIcon={
+                  showPasswords.new ? <EyeSlash size={20} /> : <Eye size={20} />
+                }
                 onRightIconClick={() => togglePasswordVisibility("new")}
-                size="lg"
+                inputSize="lg"
               />
 
               {/* Confirm New Password */}
@@ -274,12 +285,20 @@ const Profile: React.FC = () => {
                 label="تایید رمز عبور جدید"
                 type={showPasswords.confirm ? "text" : "password"}
                 value={passwords.confirmPassword}
-                onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
+                onChange={(e) =>
+                  handlePasswordChange("confirmPassword", e.target.value)
+                }
                 placeholder="رمز عبور جدید را مجدداً وارد کنید"
                 leftIcon={<Lock size={20} />}
-                rightIcon={showPasswords.confirm ? <EyeSlash size={20} /> : <Eye size={20} />}
+                rightIcon={
+                  showPasswords.confirm ? (
+                    <EyeSlash size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )
+                }
                 onRightIconClick={() => togglePasswordVisibility("confirm")}
-                size="lg"
+                inputSize="lg"
               />
 
               {/* Password Requirements */}
@@ -317,8 +336,7 @@ const Profile: React.FC = () => {
                   !passwords.currentPassword ||
                   !passwords.newPassword ||
                   !passwords.confirmPassword
-                }
-              >
+                }>
                 تغییر رمز عبور
               </Button>
             </div>

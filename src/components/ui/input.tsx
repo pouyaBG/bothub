@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
   error?: string;
   helper?: string;
@@ -9,7 +9,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   rightIcon?: React.ReactNode;
   onRightIconClick?: () => void;
   variant?: 'default' | 'filled' | 'outlined';
-  size?: 'sm' | 'md' | 'lg';
+  inputSize?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
 }
 
@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     rightIcon,
     onRightIconClick,
     variant = 'default',
-    size = 'md',
+    inputSize = 'md',
     fullWidth = true,
     id,
     ...props
@@ -54,15 +54,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       let classes = cn(
         baseStyles,
         variants[variant],
-        sizes[size],
+        sizes[inputSize],
         fullWidth && 'w-full'
       );
 
       if (leftIcon) {
-        classes += size === 'sm' ? ' pr-9' : size === 'lg' ? ' pr-12' : ' pr-10';
+        classes += inputSize === 'sm' ? ' pr-9' : inputSize === 'lg' ? ' pr-12' : ' pr-10';
       }
       if (rightIcon) {
-        classes += size === 'sm' ? ' pl-9' : size === 'lg' ? ' pl-12' : ' pl-10';
+        classes += inputSize === 'sm' ? ' pl-9' : inputSize === 'lg' ? ' pl-12' : ' pl-10';
       }
 
       if (error) {
@@ -87,7 +87,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {leftIcon && (
             <div className={cn(
               'absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none',
-              iconSizes[size]
+              iconSizes[inputSize]
             )}>
               {leftIcon}
             </div>
@@ -105,7 +105,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               className={cn(
                 'absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400',
                 onRightIconClick ? 'cursor-pointer hover:text-gray-600' : 'pointer-events-none',
-                iconSizes[size]
+                iconSizes[inputSize]
               )}
               onClick={onRightIconClick}
             >

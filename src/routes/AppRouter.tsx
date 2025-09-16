@@ -1,20 +1,12 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
+import GradientLoader from "../components/common/GradientLoader";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
-
-const Loader = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="flex items-center space-x-2 space-x-reverse">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      <span className="text-gray-600">در حال بارگذاری...</span>
-    </div>
-  </div>
-);
 
 const AppRouter = () => {
   return (
@@ -22,7 +14,7 @@ const AppRouter = () => {
       <Route
         path="/login"
         element={
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<GradientLoader />}>
             <Login />
           </Suspense>
         }
@@ -33,7 +25,7 @@ const AppRouter = () => {
         <Route
           path="/"
           element={
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<GradientLoader />}>
               <DashboardLayout />
             </Suspense>
           }
@@ -41,7 +33,7 @@ const AppRouter = () => {
           <Route
             index
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<GradientLoader />}>
                 <Dashboard />
               </Suspense>
             }
@@ -83,7 +75,7 @@ const AppRouter = () => {
           <Route
             path="profile"
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<GradientLoader />}>
                 <Profile />
               </Suspense>
             }
