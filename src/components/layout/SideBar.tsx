@@ -10,6 +10,7 @@ import {
   Plus,
   CaretDown
 } from 'phosphor-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 interface MenuItem {
   title: string;
@@ -89,51 +90,62 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed }) => {
     const parentActive = isParentActive(item);
     const IconComponent = item.icon;
 
-    return (
-      <div key={item.path} className="mb-1 relative group">
-        <div
-          className={`flex items-center justify-between px-3 py-2.5 rounded-md cursor-pointer transition-all duration-200 ${
-            active || parentActive
-              ? 'bg-gradient-to-r from-slate-700 to-slate-800 text-white shadow-sm'
-              : 'text-gray-300 hover:bg-slate-700/50 hover:text-white'
-          } ${level > 0 ? 'mr-4 text-sm' : ''}`}
-          onClick={() => {
-            if (hasChildren) {
-              toggleExpand(item.path);
-            }
-          }}
-        >
-          <Link
-            to={item.path}
-            className={`flex items-center flex-1 ${hasChildren ? 'pointer-events-none' : ''}`}
-            onClick={(e) => hasChildren && e.preventDefault()}
-          >
-            <IconComponent size={18} className="ml-3" />
-            {isOpen && !isCollapsed && (
-              <span className="font-medium text-sm">{item.title}</span>
-            )}
-          </Link>
-
-          {hasChildren && isOpen && !isCollapsed && (
-            <CaretDown
-              size={16}
-              className={`transform transition-transform duration-200 ${
-                isExpanded ? 'rotate-180' : ''
-              }`}
-            />
+    const menuContent = hasChildren ? (
+      <div
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
+          active || parentActive
+            ? 'bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm'
+            : 'text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm'
+        } ${level > 0 ? 'mr-5 text-sm bg-slate-800/50' : 'shadow-sm'}`}
+        onClick={() => toggleExpand(item.path)}
+      >
+        <div className={`flex items-center ${isCollapsed ? 'justify-center w-full' : 'flex-1'}`}>
+          <IconComponent size={20} className={`flex-shrink-0 ${isCollapsed ? '' : 'ml-3'}`} />
+          {isOpen && !isCollapsed && (
+            <span className="font-semibold text-sm tracking-wide">{item.title}</span>
           )}
         </div>
 
-        {/* Tooltip for collapsed state */}
-        {isCollapsed && level === 0 && (
-          <div className="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-50">
-            <div className="bg-slate-800 text-white text-sm px-3 py-2 rounded-md shadow-lg border border-slate-600 whitespace-nowrap">
-              {item.title}
-              <div className="absolute right-0 top-1/2 transform translate-x-1 -translate-y-1/2">
-                <div className="w-2 h-2 bg-slate-800 border-r border-b border-slate-600 transform rotate-45"></div>
-              </div>
-            </div>
-          </div>
+        {isOpen && !isCollapsed && (
+          <CaretDown
+            size={16}
+            className={`transform transition-transform duration-200 ${
+              isExpanded ? 'rotate-180' : ''
+            }`}
+          />
+        )}
+      </div>
+    ) : (
+      <Link
+        to={item.path}
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 block ${
+          active || parentActive
+            ? 'bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm'
+            : 'text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm'
+        } ${level > 0 ? 'mr-5 text-sm bg-slate-800/50' : 'shadow-sm'}`}
+      >
+        <div className={`flex items-center ${isCollapsed ? 'justify-center w-full' : 'flex-1'}`}>
+          <IconComponent size={20} className={`flex-shrink-0 ${isCollapsed ? '' : 'ml-3'}`} />
+          {isOpen && !isCollapsed && (
+            <span className="font-semibold text-sm tracking-wide">{item.title}</span>
+          )}
+        </div>
+      </Link>
+    );
+
+    return (
+      <div key={item.path} className="mb-1 relative">
+        {isCollapsed && level === 0 ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              {menuContent}
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>{item.title}</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          menuContent
         )}
 
         {/* Children */}
@@ -148,38 +160,38 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, isCollapsed }) => {
 
   return (
     <div
-      className={`fixed right-0 top-0 h-full bg-slate-900/95 backdrop-blur-sm shadow-2xl transition-all duration-300 z-30 ${
-        isCollapsed ? 'w-16' : isOpen ? 'w-64' : 'w-16'
+      className={`fixed right-0 top-0 h-full bg-gradient-to-b from-slate-900 to-slate-800 backdrop-blur-sm shadow-2xl border-l border-slate-700/30 transition-all duration-300 z-30 ${
+        isCollapsed ? 'w-18' : isOpen ? 'w-72' : 'w-18'
       }`}
     >
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-center h-16 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-700/50">
+        <div className="flex items-center justify-center h-18 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-600/40 shadow-lg">
           <div className={`transition-opacity ${isOpen && !isCollapsed ? 'opacity-100' : 'opacity-0'}`}>
-            <h2 className="font-bold text-lg bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="font-extrabold text-xl bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent tracking-wide">
               داشبورد بات‌ها
             </h2>
+            <div className="text-center mt-1">
+              <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
+            </div>
           </div>
         </div>
 
-        <nav className="p-3 space-y-1 flex-1 overflow-y-auto">
+        <nav className="p-4 space-y-2 flex-1 overflow-visible">
           {menuItems.map(item => renderMenuItem(item))}
         </nav>
 
         {/* Version info */}
-        <div className="p-3 border-t border-slate-700/50 mt-auto">
+        <div className="p-4 border-t border-slate-600/40 mt-auto bg-gradient-to-r from-slate-800/50 to-slate-900/50">
           <div className={`transition-opacity ${isOpen && !isCollapsed ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-xs text-gray-400 text-center">
-              نسخه 1.0.0
-            </p>
-            <p className="text-xs text-gray-500 text-center mt-1">
-              © 2025 داشبورد بات‌ها
-            </p>
-          </div>
-          {(isCollapsed || !isOpen) && (
-            <div className="flex justify-center">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <div className="text-center">
+              <p className="text-xs text-gray-400 font-medium">
+                نسخه 1.0.0
+              </p>
+              <p className="text-xs text-gray-500 mt-1 font-light">
+                © 2025 داشبورد بات‌ها
+              </p>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

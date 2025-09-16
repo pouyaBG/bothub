@@ -58,10 +58,10 @@ const DashboardLayout = () => {
       <div
         className={`transition-all duration-300 ${
           isSidebarCollapsed
-            ? 'lg:ml-16'
+            ? 'lg:mr-18'
             : isSidebarOpen
-              ? 'lg:ml-64'
-              : 'lg:ml-16'
+              ? 'lg:mr-72'
+              : 'lg:mr-18'
         }`}
       >
         <TopBar
@@ -73,7 +73,7 @@ const DashboardLayout = () => {
         />
 
         <main className="pt-16 min-h-screen">
-          <div className="p-6">
+          <div className="py-8 px-4 pl-8">
             <Outlet />
           </div>
         </main>

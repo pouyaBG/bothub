@@ -5,6 +5,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Profile = lazy(() => import("../pages/Profile/Profile"));
 
 const Loader = () => (
   <div className="flex items-center justify-center min-h-screen">
@@ -78,6 +79,14 @@ const AppRouter = () => {
           <Route
             path="reports"
             element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">گزارشات</h1></div>}
+          />
+          <Route
+            path="profile"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Profile />
+              </Suspense>
+            }
           />
         </Route>
       </Route>

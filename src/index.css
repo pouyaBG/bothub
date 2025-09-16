@@ -1,2 +1,24 @@
 @import "tailwindcss";
+@import "./assets/font/IRANYekan/Webfonts/fontiran.css";
 
+* {
+  font-family: IRANYekanX !important;
+  -moz-font-feature-settings: "ss02";
+  -webkit-font-feature-settings: "ss02";
+  font-feature-settings: "ss02";
+}
+
+.rtl {
+  direction: rtl;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
