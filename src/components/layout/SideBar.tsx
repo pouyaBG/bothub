@@ -12,11 +12,12 @@ import {
   PuzzlePiece,
   Robot,
   Shield,
-  UserCircle
+  UserCircle,
 } from "phosphor-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import logo from "../../assets/logo.png";
 
 interface MenuItem {
   title: string;
@@ -285,17 +286,16 @@ const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? "lg:w-18" : "lg:w-72"
       }`}>
       <div className="flex flex-col h-full">
-        <div className="flex items-center justify-center h-18 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-600/40 shadow-lg">
+        <div className="flex items-center justify-center px-2 h-18 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-slate-600/40 shadow-lg">
           <div
-            className={`transition-opacity ${
-              isOpen && !isCollapsed ? "opacity-100" : "opacity-0"
-            }`}>
-            <h2 className="font-extrabold text-xl bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent tracking-wide">
-              داشبورد بات‌ها
-            </h2>
-            <div className="text-center mt-1">
-              <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
-            </div>
+            className={`transition-opacity flex items-center justify-center`}>
+            <img
+              src={logo}
+              alt="لوگو"
+              className={`${
+                isCollapsed ? "w-16" : "w-32"
+              }  object-contain h-auto`}
+            />
           </div>
         </div>
 

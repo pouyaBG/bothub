@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeSlash, Robot, Envelope, Lock } from 'phosphor-react';
+import { Eye, EyeSlash, Envelope, Lock } from 'phosphor-react';
+import logo from '../../assets/logo.png';
 
 interface LoginFormData {
   email: string;
@@ -44,11 +45,15 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" dir="rtl">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-20 w-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-            <Robot size={40} className="text-white" />
+          <div className="mx-auto h-20 w-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 p-2">
+            <img
+              src={logo}
+              alt="لوگو"
+              className="w-full h-full object-contain"
+            />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-white">
-            ورود به داشبورد بات‌ها
+            ورود به داشبورد
           </h2>
           <p className="mt-2 text-blue-100">
             برای دسترسی به پنل مدیریت وارد شوید
@@ -113,24 +118,16 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-white/30 bg-white/20 rounded"
-                />
-                <label htmlFor="remember-me" className="mr-2 block text-sm text-white">
-                  مرا به خاطر بسپار
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-white hover:text-blue-200 transition-colors">
-                  رمز عبور را فراموش کردید؟
-                </a>
-              </div>
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-white/30 bg-white/20 rounded"
+              />
+              <label htmlFor="remember-me" className="mr-2 block text-sm text-white">
+                مرا به خاطر بسپار
+              </label>
             </div>
 
             <button
@@ -148,14 +145,6 @@ const Login = () => {
               )}
             </button>
 
-            <div className="text-center">
-              <p className="text-sm text-white/80">
-                حساب کاربری ندارید؟{' '}
-                <a href="#" className="font-medium text-white hover:text-blue-200 transition-colors">
-                  ثبت نام کنید
-                </a>
-              </p>
-            </div>
           </form>
         </div>
       </div>
