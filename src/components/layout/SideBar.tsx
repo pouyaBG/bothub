@@ -12,8 +12,7 @@ import {
   PuzzlePiece,
   Robot,
   Shield,
-  SquaresFour,
-  UserCircle,
+  UserCircle
 } from "phosphor-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -102,11 +101,6 @@ const menuItems: MenuItem[] = [
       { title: "لیست چنل‌ها", path: "/channels/list", icon: Hash },
       { title: "جوین اجباری", path: "/channels/mandatory-join", icon: Shield },
     ],
-  },
-  {
-    title: "تنظیمات پنل",
-    path: "/panel-settings",
-    icon: SquaresFour,
   },
   {
     title: "گزارشات",

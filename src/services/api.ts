@@ -1,5 +1,5 @@
 // Base API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = "http://localhost:3001/api";
 
 // Generic API request function
 export const apiRequest = async <T>(
@@ -10,14 +10,14 @@ export const apiRequest = async <T>(
 
   const config: RequestInit = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...options.headers,
     },
     ...options,
   };
 
   // Add auth token if available
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem("authToken");
   if (token) {
     config.headers = {
       ...config.headers,
@@ -39,16 +39,16 @@ export const api = {
   get: <T>(endpoint: string) => apiRequest<T>(endpoint),
   post: <T>(endpoint: string, data: any) =>
     apiRequest<T>(endpoint, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(data),
     }),
   put: <T>(endpoint: string, data: any) =>
     apiRequest<T>(endpoint, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     }),
   delete: <T>(endpoint: string) =>
     apiRequest<T>(endpoint, {
-      method: 'DELETE',
+      method: "DELETE",
     }),
 };

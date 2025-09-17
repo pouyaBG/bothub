@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { botsService, type Bot, type CreateBotData, type UpdateBotData } from '../services/botsService';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { botsService, type CreateBotData, type UpdateBotData } from '../services/botsService';
 
 // Query keys
 export const BOTS_QUERY_KEYS = {

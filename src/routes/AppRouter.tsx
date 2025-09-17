@@ -1,21 +1,25 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import ProtectedRoutes from "./ProtectedRoutes";
 import GradientLoader from "../components/common/GradientLoader";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
-const UserManagement = lazy(() => import("../pages/UserManagement/UserManagement"));
+const UserManagement = lazy(
+  () => import("../pages/UserManagement/UserManagement")
+);
 const Messaging = lazy(() => import("../pages/Messaging/Messaging"));
 const Payments = lazy(() => import("../pages/Payments/Payments"));
 const BotSettings = lazy(() => import("../pages/BotSettings/BotSettings"));
-const PanelSettings = lazy(() => import("../pages/PanelSettings/PanelSettings"));
+
 const Plugins = lazy(() => import("../pages/Plugins/Plugins"));
 const Channels = lazy(() => import("../pages/Channels/Channels"));
 const ActivityLogs = lazy(() => import("../pages/ActivityLogs/ActivityLogs"));
-const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
+const Notifications = lazy(
+  () => import("../pages/Notifications/Notifications")
+);
 const BotsList = lazy(() => import("../pages/Bots/BotsList"));
 const PluginsList = lazy(() => import("../pages/Plugins/PluginsList"));
 const ChannelsList = lazy(() => import("../pages/Channels/ChannelsList"));
@@ -41,8 +45,7 @@ const AppRouter = () => {
             <Suspense fallback={<GradientLoader />}>
               <DashboardLayout />
             </Suspense>
-          }
-        >
+          }>
           <Route
             index
             element={
@@ -71,11 +74,19 @@ const AppRouter = () => {
           />
           <Route
             path="user-management/add"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن کاربر</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">افزودن کاربر</h1>
+              </div>
+            }
           />
           <Route
             path="user-management/permissions"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">دسترسی‌ها و ادمین‌ها</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">دسترسی‌ها و ادمین‌ها</h1>
+              </div>
+            }
           />
 
           {/* Messaging Routes */}
@@ -89,11 +100,19 @@ const AppRouter = () => {
           />
           <Route
             path="messaging/new"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">ارسال پیام جدید</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">ارسال پیام جدید</h1>
+              </div>
+            }
           />
           <Route
             path="messaging/history"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تاریخچه پیام‌ها</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">تاریخچه پیام‌ها</h1>
+              </div>
+            }
           />
 
           {/* Payments Routes */}
@@ -107,11 +126,19 @@ const AppRouter = () => {
           />
           <Route
             path="payments/transactions"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تراکنش‌ها</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">تراکنش‌ها</h1>
+              </div>
+            }
           />
           <Route
             path="payments/settings"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تنظیمات پرداخت</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">تنظیمات پرداخت</h1>
+              </div>
+            }
           />
 
           {/* Bot Settings Routes */}
@@ -125,20 +152,18 @@ const AppRouter = () => {
           />
           <Route
             path="bot-settings/general"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">تنظیمات عمومی</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">تنظیمات عمومی</h1>
+              </div>
+            }
           />
           <Route
             path="bot-settings/security"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">امنیت</h1></div>}
-          />
-
-          {/* Panel Settings Route */}
-          <Route
-            path="panel-settings"
             element={
-              <Suspense fallback={<GradientLoader />}>
-                <PanelSettings />
-              </Suspense>
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">امنیت</h1>
+              </div>
             }
           />
 
@@ -161,13 +186,21 @@ const AppRouter = () => {
           />
           <Route
             path="plugins/add"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن پلاگین</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">افزودن پلاگین</h1>
+              </div>
+            }
           />
 
           {/* Bots Routes */}
           <Route
             path="bots"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">مدیریت بات‌ها</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">مدیریت بات‌ها</h1>
+              </div>
+            }
           />
           <Route
             path="bots/list"
@@ -179,7 +212,11 @@ const AppRouter = () => {
           />
           <Route
             path="bots/add"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن بات جدید</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">افزودن بات جدید</h1>
+              </div>
+            }
           />
 
           {/* Channels Routes */}
@@ -201,17 +238,29 @@ const AppRouter = () => {
           />
           <Route
             path="channels/add"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن چنل/گروه جدید</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">افزودن چنل/گروه جدید</h1>
+              </div>
+            }
           />
           <Route
             path="channels/mandatory-join"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">جوین اجباری</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">جوین اجباری</h1>
+              </div>
+            }
           />
 
           {/* Reports Route */}
           <Route
             path="reports"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">گزارشات</h1></div>}
+            element={
+              <div className="bg-white rounded-lg shadow-sm p-6">
+                <h1 className="text-2xl font-bold">گزارشات</h1>
+              </div>
+            }
           />
 
           {/* Activity Logs Route */}
