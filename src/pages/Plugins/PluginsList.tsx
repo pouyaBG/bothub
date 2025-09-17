@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button";
 import Input from "../../components/ui/input";
 
-const Plugins: React.FC = () => {
+const PluginsList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -60,7 +60,7 @@ const Plugins: React.FC = () => {
         <div className="border-b border-gray-200 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">پلاگین‌ها</h1>
+              <h1 className="text-2xl font-bold text-gray-900">لیست پلاگین‌ها</h1>
               <p className="text-gray-600 mt-1">مدیریت پلاگین‌ها و امکانات اضافی</p>
             </div>
             <Button
@@ -69,7 +69,7 @@ const Plugins: React.FC = () => {
               icon={<Plus size={20} />}
               onClick={() => navigate("/plugins/add")}
             >
-              آپلود پلاگین
+              افزودن پلاگین
             </Button>
           </div>
         </div>
@@ -148,4 +148,4 @@ const Plugins: React.FC = () => {
   );
 };
 
-export default Plugins;
+export default PluginsList;

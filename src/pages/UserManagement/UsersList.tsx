@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button";
 import Input from "../../components/ui/input";
 
-const UserManagement: React.FC = () => {
+const UsersList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -12,6 +12,8 @@ const UserManagement: React.FC = () => {
     { id: 1, name: "احمد محمدی", email: "ahmad@example.com", role: "ادمین", status: "فعال" },
     { id: 2, name: "فاطمه رضایی", email: "fateme@example.com", role: "کاربر", status: "فعال" },
     { id: 3, name: "علی کریمی", email: "ali@example.com", role: "مدیر", status: "غیرفعال" },
+    { id: 4, name: "زهرا احمدی", email: "zahra@example.com", role: "کاربر", status: "فعال" },
+    { id: 5, name: "محمد نوری", email: "mohammad@example.com", role: "کاربر", status: "غیرفعال" },
   ];
 
   return (
@@ -19,7 +21,7 @@ const UserManagement: React.FC = () => {
       <div className="border-b border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">مدیریت کاربران</h1>
+            <h1 className="text-2xl font-bold text-gray-900">لیست کاربران</h1>
             <p className="text-gray-600 mt-1">مدیریت کاربران و دسترسی‌ها</p>
           </div>
           <Button
@@ -87,9 +89,18 @@ const UserManagement: React.FC = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">راهنمای کاربران</h3>
+          <ul className="text-sm text-blue-800 space-y-1">
+            <li>• ادمین‌ها دسترسی کامل به همه بخش‌های پنل دارند</li>
+            <li>• مدیران می‌توانند کاربران عادی را مدیریت کنند</li>
+            <li>• کاربران عادی فقط به بخش‌های محدودی دسترسی دارند</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
 };
 
-export default UserManagement;
+export default UsersList;

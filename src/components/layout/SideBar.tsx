@@ -8,14 +8,12 @@ import {
   Gear,
   Hash,
   House,
-  List,
   LockKey,
-  Plus,
   PuzzlePiece,
   Robot,
   Shield,
   SquaresFour,
-  UserCircle
+  UserCircle,
 } from "phosphor-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -39,8 +37,11 @@ const menuItems: MenuItem[] = [
     path: "/user-management",
     icon: UserCircle,
     children: [
-      { title: "لیست کاربران", path: "/user-management/list", icon: List },
-      { title: "افزودن کاربر", path: "/user-management/add", icon: Plus },
+      {
+        title: "لیست کاربران",
+        path: "/user-management/list",
+        icon: UserCircle,
+      },
       {
         title: "دسترسی‌ها و ادمین‌ها",
         path: "/user-management/permissions",
@@ -49,11 +50,11 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    title: "ارسال پیام",
+    title: "پیام‌رسانی",
     path: "/messaging",
     icon: ChatCircle,
     children: [
-      { title: "ارسال پیام جدید", path: "/messaging/new", icon: Plus },
+      { title: "ارسال پیام", path: "/messaging/new", icon: ChatCircle },
       {
         title: "تاریخچه پیام‌ها",
         path: "/messaging/history",
@@ -66,7 +67,7 @@ const menuItems: MenuItem[] = [
     path: "/payments",
     icon: CreditCard,
     children: [
-      { title: "تراکنش‌ها", path: "/payments/transactions", icon: List },
+      { title: "تراکنش‌ها", path: "/payments/transactions", icon: CreditCard },
       { title: "تنظیمات پرداخت", path: "/payments/settings", icon: Gear },
     ],
   },
@@ -80,36 +81,32 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    title: "تنظیمات پنل",
-    path: "/panel-settings",
-    icon: SquaresFour,
-  },
-  {
     title: "پلاگین‌ها",
     path: "/plugins",
     icon: PuzzlePiece,
     children: [
-      { title: "لیست پلاگین‌ها", path: "/plugins/list", icon: List },
-      { title: "افزودن پلاگین", path: "/plugins/add", icon: Plus },
+      { title: "لیست پلاگین‌ها", path: "/plugins/list", icon: PuzzlePiece },
     ],
   },
   {
     title: "مدیریت بات‌ها",
     path: "/bots",
     icon: Robot,
-    children: [
-      { title: "لیست بات‌ها", path: "/bots/list", icon: List },
-      { title: "افزودن بات جدید", path: "/bots/add", icon: Plus },
-    ],
+    children: [{ title: "لیست بات‌ها", path: "/bots/list", icon: Robot }],
   },
   {
     title: "مدیریت چنل‌ها",
     path: "/channels",
     icon: Hash,
     children: [
-      { title: "چنل‌ها و گروه‌ها", path: "/channels/list", icon: List },
-      { title: "جوین اجباری", path: "/channels/mandatory-join", icon: Plus },
+      { title: "لیست چنل‌ها", path: "/channels/list", icon: Hash },
+      { title: "جوین اجباری", path: "/channels/mandatory-join", icon: Shield },
     ],
+  },
+  {
+    title: "تنظیمات پنل",
+    path: "/panel-settings",
+    icon: SquaresFour,
   },
   {
     title: "گزارشات",
@@ -142,6 +139,33 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const location = useLocation();
 
+  // Auto-expand parent menus when on child pages
+  React.useEffect(() => {
+    const currentPath = location.pathname;
+    const itemsToExpand: string[] = [];
+
+    menuItems.forEach((item) => {
+      if (item.children) {
+        const hasActiveChild = item.children.some(
+          (child) => child.path === currentPath
+        );
+        if (hasActiveChild) {
+          itemsToExpand.push(item.path);
+        }
+      }
+    });
+
+    setExpandedItems((prev) => {
+      const newExpanded = [...prev];
+      itemsToExpand.forEach((path) => {
+        if (!newExpanded.includes(path)) {
+          newExpanded.push(path);
+        }
+      });
+      return newExpanded;
+    });
+  }, [location.pathname]);
+
   const toggleExpand = (path: string) => {
     setExpandedItems((prev) =>
       prev.includes(path)
@@ -158,7 +182,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (item.children) {
       return item.children.some((child) => location.pathname === child.path);
     }
-    return false;
+    // Check if current path starts with item path (for parent items)
+    return (
+      location.pathname.startsWith(item.path) && location.pathname !== item.path
+    );
   };
 
   const renderMenuItem = (item: MenuItem, level: number = 0) => {
@@ -290,9 +317,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             }`}>
             <div className="text-center">
               <p className="text-xs text-gray-400 font-medium">نسخه 1.0.0</p>
-              <p className="text-xs text-gray-500 mt-1 font-light">
-                © 2025 داشبورد بات‌ها
-              </p>
             </div>
           </div>
         </div>

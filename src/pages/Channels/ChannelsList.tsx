@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/button";
 import Input from "../../components/ui/input";
 
-const Channels: React.FC = () => {
+const ChannelsList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const Channels: React.FC = () => {
       <div className="border-b border-gray-200 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">مدیریت چنل‌ها</h1>
+            <h1 className="text-2xl font-bold text-gray-900">لیست چنل‌ها</h1>
             <p className="text-gray-600 mt-1">مدیریت چنل‌ها و گروه‌های جوین اجباری</p>
           </div>
           <Button
@@ -143,4 +143,4 @@ const Channels: React.FC = () => {
   );
 };
 
-export default Channels;
+export default ChannelsList;

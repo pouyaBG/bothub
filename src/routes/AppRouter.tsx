@@ -16,6 +16,10 @@ const Plugins = lazy(() => import("../pages/Plugins/Plugins"));
 const Channels = lazy(() => import("../pages/Channels/Channels"));
 const ActivityLogs = lazy(() => import("../pages/ActivityLogs/ActivityLogs"));
 const Notifications = lazy(() => import("../pages/Notifications/Notifications"));
+const BotsList = lazy(() => import("../pages/Bots/BotsList"));
+const PluginsList = lazy(() => import("../pages/Plugins/PluginsList"));
+const ChannelsList = lazy(() => import("../pages/Channels/ChannelsList"));
+const UsersList = lazy(() => import("../pages/UserManagement/UsersList"));
 
 const AppRouter = () => {
   return (
@@ -59,7 +63,11 @@ const AppRouter = () => {
           />
           <Route
             path="user-management/list"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست کاربران</h1></div>}
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <UsersList />
+              </Suspense>
+            }
           />
           <Route
             path="user-management/add"
@@ -145,7 +153,11 @@ const AppRouter = () => {
           />
           <Route
             path="plugins/list"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست پلاگین‌ها</h1></div>}
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <PluginsList />
+              </Suspense>
+            }
           />
           <Route
             path="plugins/add"
@@ -159,7 +171,11 @@ const AppRouter = () => {
           />
           <Route
             path="bots/list"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">لیست بات‌ها</h1></div>}
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <BotsList />
+              </Suspense>
+            }
           />
           <Route
             path="bots/add"
@@ -177,7 +193,15 @@ const AppRouter = () => {
           />
           <Route
             path="channels/list"
-            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">چنل‌ها و گروه‌ها</h1></div>}
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <ChannelsList />
+              </Suspense>
+            }
+          />
+          <Route
+            path="channels/add"
+            element={<div className="bg-white rounded-lg shadow-sm p-6"><h1 className="text-2xl font-bold">افزودن چنل/گروه جدید</h1></div>}
           />
           <Route
             path="channels/mandatory-join"
