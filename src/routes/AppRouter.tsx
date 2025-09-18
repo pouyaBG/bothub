@@ -21,6 +21,7 @@ const Notifications = lazy(
   () => import("../pages/Notifications/Notifications")
 );
 const BotsList = lazy(() => import("../pages/Bots/BotsList"));
+const BotManagement = lazy(() => import("../pages/Bots/BotManagement"));
 const PluginsList = lazy(() => import("../pages/Plugins/PluginsList"));
 const ChannelsList = lazy(() => import("../pages/Channels/ChannelsList"));
 const UsersList = lazy(() => import("../pages/UserManagement/UsersList"));
@@ -196,16 +197,6 @@ const AppRouter = () => {
               </div>
             }
           />
-
-          {/* Bots Routes */}
-          <Route
-            path="bots"
-            element={
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h1 className="text-2xl font-bold">مدیریت بات‌ها</h1>
-              </div>
-            }
-          />
           <Route
             path="bots/list"
             element={
@@ -220,6 +211,14 @@ const AppRouter = () => {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h1 className="text-2xl font-bold">افزودن بات جدید</h1>
               </div>
+            }
+          />
+          <Route
+            path="bots/:id"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <BotManagement />
+              </Suspense>
             }
           />
 

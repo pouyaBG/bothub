@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { CaretLeft } from 'phosphor-react';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { CaretLeft } from "phosphor-react";
 
 interface BreadcrumbItem {
   title: string;
@@ -8,29 +8,33 @@ interface BreadcrumbItem {
 }
 
 const routeConfig: Record<string, string> = {
-  '/': 'داشبورد',
-  '/bots': 'بات‌ها',
-  '/bots/list': 'لیست بات‌ها',
-  '/bots/add': 'افزودن بات جدید',
-  '/users': 'کاربران',
-  '/users/list': 'لیست کاربران',
-  '/users/add': 'افزودن کاربر',
-  '/settings': 'تنظیمات',
-  '/reports': 'گزارشات'
+  "/": "داشبورد",
+  "/bots/list": "لیست بات‌ها",
+  "/bots/add": "افزودن بات جدید",
+  "/users": "کاربران",
+  "/users/list": "لیست کاربران",
+  "/users/add": "افزودن کاربر",
+  "/settings": "تنظیمات",
+  "/reports": "گزارشات",
 };
 
 const Breadcrumb: React.FC = () => {
   const location = useLocation();
-  const pathnames = location.pathname.split('/').filter((x) => x);
+  const pathnames = location.pathname.split("/").filter((x) => x);
 
-  const breadcrumbItems: BreadcrumbItem[] = [
-    { title: 'داشبورد', path: '/' }
-  ];
+  const breadcrumbItems: BreadcrumbItem[] = [{ title: "داشبورد", path: "/" }];
 
-  let currentPath = '';
+  let currentPath = "";
   pathnames.forEach((segment) => {
     currentPath += `/${segment}`;
-    const title = routeConfig[currentPath];
+    let title = routeConfig[currentPath];
+
+    // Handle dynamic routes like /bots/:id
+    if (!title && currentPath.startsWith("/bots/") && currentPath !== "/bots/list" && currentPath !== "/bots/add") {
+      const botId = segment;
+      title = `مدیریت ربات #${botId}`;
+    }
+
     if (title) {
       breadcrumbItems.push({ title, path: currentPath });
     }
@@ -45,8 +49,7 @@ const Breadcrumb: React.FC = () => {
           ) : (
             <Link
               to={item.path}
-              className="hover:text-blue-400 transition-colors font-medium"
-            >
+              className="hover:text-blue-400 transition-colors font-medium">
               {item.title}
             </Link>
           )}
