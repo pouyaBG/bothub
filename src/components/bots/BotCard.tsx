@@ -140,29 +140,18 @@ const BotCard: React.FC<BotCardProps> = ({ bot, onDelete, onToggleStatus }) => {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {getStatusIcon(bot.status)}
+          <div
+            className="inline-flex items-center gap-1 pr-2.5 pl-1 py-1 rounded-md text-xs font-medium"
+            style={getStatusStyles(bot.status)}>
+            {getStatusText(bot.status)}
+            {getStatusIcon(bot.status)}
+          </div>
         </div>
       </div>
 
-      <div className="mb-4">
-        <div
-          className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-          style={getStatusStyles(bot.status)}>
-          {getStatusText(bot.status)}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-gray-500 rounded-lg p-3">
-          <p className="text-sm text-white">کل کاربران</p>
-          <p className="font-semibold text-gray-200 text-lg">{bot.users}</p>
-        </div>
-        <div className="bg-gray-500 rounded-lg p-3">
-          <p className="text-sm text-white">پیام‌های ۲۴ ساعت</p>
-          <p className="font-semibold text-gray-200 text-lg">
-            {bot.messages24h}
-          </p>
-        </div>
+      <div className="bg-gray-500 rounded-lg p-3 w-full flex items-center justify-between mb-2">
+        <p className="text-sm text-white">کل کاربران</p>
+        <p className="font-black text-gray-200 text-lg">{bot.users}</p>
       </div>
 
       <div className="mb-4 text-sm">
@@ -185,15 +174,13 @@ const BotCard: React.FC<BotCardProps> = ({ bot, onDelete, onToggleStatus }) => {
           size="sm"
           icon={<Power size={16} />}
           onClick={handleToggleClick}>
-          {bot.status === "active" ? "غیرفعال" : "فعال"}
+          {/* {bot.status === "active" ? "غیرفعال" : "فعال"} */}
         </Button>
         <Button
           variant="danger"
           size="sm"
           icon={<Trash size={16} />}
-          onClick={handleDeleteClick}>
-          حذف
-        </Button>
+          onClick={handleDeleteClick}></Button>
       </div>
     </div>
   );
