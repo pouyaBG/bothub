@@ -167,7 +167,7 @@ const BotCard: React.FC<BotCardProps> = ({ bot, onDelete, onToggleStatus }) => {
           size="sm"
           className="flex-1"
           onClick={() => navigate(`/bots/${bot.id}`)}>
-          مدیریت
+          جزئیات
         </Button>
         <Button
           variant="secondary"
