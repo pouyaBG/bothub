@@ -26,13 +26,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-      primary: 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100 focus:ring-blue-500',
-      secondary: 'bg-gray-600 hover:bg-gray-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100 focus:ring-gray-500',
-      danger: 'bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100 focus:ring-red-500',
-      success: 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100 focus:ring-green-500',
-      warning: 'bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg transform hover:scale-105 disabled:hover:scale-100 focus:ring-amber-500',
-      ghost: 'bg-transparent hover:bg-gray-100 text-gray-700 hover:text-gray-900 focus:ring-gray-500',
-      outline: 'border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 focus:ring-gray-500'
+      primary: 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg focus:ring-blue-500',
+      secondary: 'bg-gray-600 hover:bg-gray-700 text-white shadow-md hover:shadow-lg focus:ring-gray-500',
+      danger: 'bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg focus:ring-red-500',
+      success: 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg focus:ring-green-500',
+      warning: 'bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg focus:ring-amber-500',
+      ghost: 'bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white focus:ring-gray-500',
+      outline: 'border border-gray-500 bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white focus:ring-gray-500'
     };
 
     const sizes = {

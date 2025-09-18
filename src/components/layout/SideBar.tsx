@@ -1,7 +1,6 @@
 import {
   Bell,
   CaretDown,
-  ChartBar,
   ChatCircle,
   ClockCounterClockwise,
   CreditCard,
@@ -12,12 +11,12 @@ import {
   PuzzlePiece,
   Robot,
   Shield,
-  UserCircle,
+  UserCircle
 } from "phosphor-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import logo from "../../assets/logo.png";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface MenuItem {
   title: string;
@@ -104,11 +103,6 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    title: "گزارشات",
-    path: "/reports",
-    icon: ChartBar,
-  },
-  {
     title: "لاگ فعالیت‌ها",
     path: "/activity-logs",
     icon: ClockCounterClockwise,
@@ -177,6 +171,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (item.children) {
       return item.children.some((child) => location.pathname === child.path);
     }
+    // Don't mark dashboard as active for other paths
+    if (item.path === "/") {
+      return false;
+    }
     // Check if current path starts with item path (for parent items)
     return (
       location.pathname.startsWith(item.path) && location.pathname !== item.path
@@ -192,7 +190,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     const menuContent = hasChildren ? (
       <div
-        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 ${
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none ${
           active || parentActive
             ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm"
             : "text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm"
@@ -225,7 +223,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     ) : (
       <Link
         to={item.path}
-        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200  ${
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none ${
           active || parentActive
             ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm"
             : "text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm"

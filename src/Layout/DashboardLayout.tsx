@@ -3,19 +3,9 @@ import { useState, useEffect } from "react";
 import TopBar from "../components/layout/TopBar";
 import Sidebar from "../components/layout/SideBar";
 
-interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-}
-
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [user, _setUser] = useState<User>({
-    name: 'احمد محمدی',
-    email: 'ahmad@example.com'
-  });
 
   const handleSideBarToggle = () => {
     if (window.innerWidth < 1024) {
@@ -48,7 +38,7 @@ const DashboardLayout = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-slate-800 to-gray-900 rtl min-h-screen" dir="rtl">
+    <div className="bg-gray-900 text-white rtl min-h-screen" dir="rtl">
       {/* Sidebar */}
       <Sidebar
         isOpen={isSidebarOpen}
@@ -79,7 +69,6 @@ const DashboardLayout = () => {
         }`}
       >
         <TopBar
-          user={user}
           onToggleSidebar={handleSideBarToggle}
           onToggleCollapse={handleSideBarCollapse}
           isCollapsed={isSidebarCollapsed}
@@ -87,7 +76,7 @@ const DashboardLayout = () => {
         />
 
         <main className="pt-16 min-h-screen">
-          <div className="py-8 px-4 lg:pl-8">
+          <div className="p-4 lg:p-6">
             <Outlet />
           </div>
         </main>

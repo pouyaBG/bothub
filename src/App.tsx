@@ -4,6 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./App.css";
 import AppRouter from "./routes/AppRouter";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { AuthProvider } from "./context/AuthContext";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -19,11 +20,13 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Router>
-          <AppRouter />
-        </Router>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Router>
+            <AppRouter />
+          </Router>
+        </TooltipProvider>
+      </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

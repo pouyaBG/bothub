@@ -11,15 +11,10 @@ import {
 } from "phosphor-react";
 import Breadcrumb from "./Breadcrumb";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { useAuth } from "../../context/AuthContext";
 
-interface UserType {
-  name: string;
-  email: string;
-  avatar?: string;
-}
 
 interface TopBarProps {
-  user?: UserType;
   onToggleSidebar: () => void;
   onToggleCollapse: () => void;
   isCollapsed: boolean;
@@ -27,7 +22,6 @@ interface TopBarProps {
 }
 
 const TopBar: React.FC<TopBarProps> = ({
-  user,
   onToggleSidebar,
   onToggleCollapse,
   isCollapsed,
@@ -36,8 +30,9 @@ const TopBar: React.FC<TopBarProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { user: authUser, logout } = useAuth();
 
-  const currentUser = user || {
+  const currentUser = authUser || {
     name: "کاربر نمونه",
     email: "user@example.com",
   };
@@ -48,6 +43,7 @@ const TopBar: React.FC<TopBarProps> = ({
 
   const handleLogout = () => {
     setIsDropdownOpen(false);
+    logout();
     navigate("/login");
   };
 

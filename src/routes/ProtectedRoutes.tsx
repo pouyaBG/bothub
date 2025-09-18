@@ -1,19 +1,20 @@
 // src/routes/ProtectedRoutes.tsx
 import { Navigate, Outlet } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import GradientLoader from "../components/common/GradientLoader";
 
 const ProtectedRoutes = () => {
-  // const { user, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  if (false) {
+  if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin w-12 h-12 border-4 border-primary-icon-rest border-t-transparent rounded-full" />
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <GradientLoader />
       </div>
     );
   }
 
-  return true ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoutes;

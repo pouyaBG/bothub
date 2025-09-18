@@ -1,7 +1,8 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import GradientLoader from "../components/common/GradientLoader";
 import ProtectedRoutes from "./ProtectedRoutes";
+import { useAuth } from "../context/AuthContext";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
@@ -26,14 +27,28 @@ const ChannelsList = lazy(() => import("../pages/Channels/ChannelsList"));
 const UsersList = lazy(() => import("../pages/UserManagement/UsersList"));
 
 const AppRouter = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <GradientLoader />
+      </div>
+    );
+  }
+
   return (
     <Routes>
       <Route
         path="/login"
         element={
-          <Suspense fallback={<GradientLoader />}>
-            <Login />
-          </Suspense>
+          isAuthenticated ? (
+            <Navigate to="/" replace />
+          ) : (
+            <Suspense fallback={<GradientLoader />}>
+              <Login />
+            </Suspense>
+          )
         }
       />
 
@@ -258,7 +273,8 @@ const AppRouter = () => {
             path="reports"
             element={
               <div className="bg-white rounded-lg shadow-sm p-6">
-                <h1 className="text-2xl font-bold">گزارشات</h1>
+                <h1 className="text-2xl font-bold">تحلیل و گزارشات</h1>
+                <p className="text-gray-600 mt-2">این بخش در داشبورد اصلی قرار دارد</p>
               </div>
             }
           />
