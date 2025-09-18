@@ -7,7 +7,6 @@ import {
   Gear,
   Hash,
   House,
-  LockKey,
   PuzzlePiece,
   Robot,
   Shield,
@@ -30,6 +29,11 @@ const menuItems: MenuItem[] = [
     title: "داشبورد",
     path: "/",
     icon: House,
+  },
+  {
+    title: "مدیریت بات‌ها",
+    path: "/bots/list",
+    icon: Robot,
   },
   {
     title: "مدیریت کاربران",
@@ -71,28 +75,11 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    title: "تنظیمات ربات",
-    path: "/bot-settings",
-    icon: Shield,
-    children: [
-      { title: "تنظیمات عمومی", path: "/bot-settings/general", icon: Gear },
-      { title: "امنیت", path: "/bot-settings/security", icon: LockKey },
-    ],
-  },
-  {
     title: "پلاگین‌ها",
-    path: "/plugins",
+    path: "/plugins/list",
     icon: PuzzlePiece,
-    children: [
-      { title: "لیست پلاگین‌ها", path: "/plugins/list", icon: PuzzlePiece },
-    ],
   },
-  {
-    title: "مدیریت بات‌ها",
-    path: "/bots",
-    icon: Robot,
-    children: [{ title: "لیست بات‌ها", path: "/bots/list", icon: Robot }],
-  },
+
   {
     title: "مدیریت چنل‌ها",
     path: "/channels",
@@ -190,9 +177,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
     const menuContent = hasChildren ? (
       <div
-        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none ${
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer border border-transparent transition-all duration-200 focus:outline-none ${
           active || parentActive
-            ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm"
+            ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md  border-blue-500/30 backdrop-blur-sm"
             : "text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm"
         } ${level > 0 ? "mr-5 text-sm bg-slate-800/50" : "shadow-sm"}`}
         onClick={() => toggleExpand(item.path)}>
@@ -223,9 +210,9 @@ const Sidebar: React.FC<SidebarProps> = ({
     ) : (
       <Link
         to={item.path}
-        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 focus:outline-none ${
+        className={`flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer border border-transparent transition-all duration-200 outline-none ${
           active || parentActive
-            ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md border border-blue-500/30 backdrop-blur-sm"
+            ? "bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-white shadow-md  border-blue-500/30 backdrop-blur-sm"
             : "text-gray-300 hover:bg-slate-700/60 hover:text-white hover:shadow-sm"
         } ${level > 0 ? "mr-5 text-sm bg-slate-800/50" : "shadow-sm"}`}
         onClick={() => {

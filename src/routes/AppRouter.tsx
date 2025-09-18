@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import GradientLoader from "../components/common/GradientLoader";
-import ProtectedRoutes from "./ProtectedRoutes";
 import { useAuth } from "../context/AuthContext";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
@@ -13,7 +13,6 @@ const UserManagement = lazy(
 );
 const Messaging = lazy(() => import("../pages/Messaging/Messaging"));
 const Payments = lazy(() => import("../pages/Payments/Payments"));
-const BotSettings = lazy(() => import("../pages/BotSettings/BotSettings"));
 
 const Plugins = lazy(() => import("../pages/Plugins/Plugins"));
 const Channels = lazy(() => import("../pages/Channels/Channels"));
@@ -155,16 +154,6 @@ const AppRouter = () => {
               </div>
             }
           />
-
-          {/* Bot Settings Routes */}
-          <Route
-            path="bot-settings"
-            element={
-              <Suspense fallback={<GradientLoader />}>
-                <BotSettings />
-              </Suspense>
-            }
-          />
           <Route
             path="bot-settings/general"
             element={
@@ -274,7 +263,9 @@ const AppRouter = () => {
             element={
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h1 className="text-2xl font-bold">تحلیل و گزارشات</h1>
-                <p className="text-gray-600 mt-2">این بخش در داشبورد اصلی قرار دارد</p>
+                <p className="text-gray-600 mt-2">
+                  این بخش در داشبورد اصلی قرار دارد
+                </p>
               </div>
             }
           />
