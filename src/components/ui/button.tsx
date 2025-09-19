@@ -35,23 +35,23 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "cursor-pointer inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
+      "cursor-pointer inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
       primary:
-        "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg focus:ring-blue-500",
+        "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg",
       secondary:
-        "bg-gray-600 hover:bg-gray-700 text-white shadow-md hover:shadow-lg focus:ring-gray-500",
+        "bg-gray-600 hover:bg-gray-700 text-white shadow-md hover:shadow-lg",
       danger:
-        "bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg focus:ring-red-500",
+        "bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg",
       success:
-        "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg focus:ring-green-500",
+        "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg",
       warning:
-        "bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg focus:ring-amber-500",
+        "bg-amber-600 hover:bg-amber-700 text-white shadow-md hover:shadow-lg",
       ghost:
-        "bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white focus:ring-gray-500",
+        "bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white",
       outline:
-        "border border-gray-500 bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white focus:ring-gray-500",
+        "border border-gray-500 bg-transparent hover:bg-gray-700 text-gray-300 hover:text-white",
     };
 
     const sizes = {

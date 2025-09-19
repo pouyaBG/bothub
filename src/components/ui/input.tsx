@@ -35,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
 
     const baseStyles =
-      "transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed";
+      "transition-all duration-200 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
       default: "border border-gray-300 bg-white rounded-lg",
@@ -81,7 +81,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
 
       if (error) {
-        classes += " border-red-500 focus:ring-red-500";
+        classes += " border-red-500";
       }
 
       return classes;

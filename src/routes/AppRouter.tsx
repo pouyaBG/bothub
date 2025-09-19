@@ -8,9 +8,6 @@ const Login = lazy(() => import("../pages/Login/Login"));
 const DashboardLayout = lazy(() => import("../Layout/DashboardLayout"));
 const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
-const UserManagement = lazy(
-  () => import("../pages/UserManagement/UserManagement")
-);
 const Messaging = lazy(() => import("../pages/Messaging/Messaging"));
 const Payments = lazy(() => import("../pages/Payments/Payments"));
 
@@ -25,6 +22,8 @@ const BotManagement = lazy(() => import("../pages/Bots/BotManagement"));
 const PluginsList = lazy(() => import("../pages/Plugins/PluginsList"));
 const ChannelsList = lazy(() => import("../pages/Channels/ChannelsList"));
 const UsersList = lazy(() => import("../pages/UserManagement/UsersList"));
+const UserProfile = lazy(() => import("../pages/UserManagement/UserProfile"));
+const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 
 const AppRouter = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -70,15 +69,6 @@ const AppRouter = () => {
             }
           />
 
-          {/* User Management Routes */}
-          <Route
-            path="user-management"
-            element={
-              <Suspense fallback={<GradientLoader />}>
-                <UserManagement />
-              </Suspense>
-            }
-          />
           <Route
             path="user-management/list"
             element={
@@ -88,19 +78,19 @@ const AppRouter = () => {
             }
           />
           <Route
-            path="user-management/add"
+            path="user-management/profile/:id"
             element={
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h1 className="text-2xl font-bold">افزودن کاربر</h1>
-              </div>
+              <Suspense fallback={<GradientLoader />}>
+                <UserProfile />
+              </Suspense>
             }
           />
           <Route
-            path="user-management/permissions"
+            path="user-management/details/:id"
             element={
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h1 className="text-2xl font-bold">دسترسی‌ها و ادمین‌ها</h1>
-              </div>
+              <Suspense fallback={<GradientLoader />}>
+                <UserProfile />
+              </Suspense>
             }
           />
 
@@ -293,6 +283,16 @@ const AppRouter = () => {
             element={
               <Suspense fallback={<GradientLoader />}>
                 <Profile />
+              </Suspense>
+            }
+          />
+
+          {/* 404 Page - must be last */}
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<GradientLoader />}>
+                <NotFound />
               </Suspense>
             }
           />
