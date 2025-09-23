@@ -75,7 +75,7 @@ const DashboardLayout = () => {
           isSidebarOpen={isSidebarOpen}
         />
 
-        <main className="pt-16 min-h-screen">
+        <main className="pt-16 min-h-screen dark-scrollbar">
           <div className="p-4 lg:p-6">
             <Outlet />
           </div>

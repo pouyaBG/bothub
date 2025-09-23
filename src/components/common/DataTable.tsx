@@ -58,7 +58,7 @@ const DataTable = <T extends Record<string, any>>({
 
   return (
     <div className={cn("bg-slate-800 rounded-lg border border-slate-700", className)}>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto dark-scrollbar">
         <table className="w-full">
           <thead>
             <tr className="border-b border-slate-700">

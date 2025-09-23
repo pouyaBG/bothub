@@ -1,11 +1,10 @@
 import {
   ArrowsDownUp,
   Eye,
-  FunnelSimple,
   MagnifyingGlass,
   Plus,
   Power,
-  Trash
+  Trash,
 } from "phosphor-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +21,6 @@ const UsersList: React.FC = () => {
   const [sortBy, _setSortBy] = useState("joinDate");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
-  const [showBulkActions, setShowBulkActions] = useState(false);
   const navigate = useNavigate();
 
   const users: User[] = [
@@ -37,14 +35,14 @@ const UsersList: React.FC = () => {
         displayName: "ادمین کل",
         level: 3,
         color: "red",
-        permissions: []
+        permissions: [],
       },
       status: "active",
       planType: "enterprise",
       joinDate: "2024-01-15",
       lastLogin: "2024-09-19T10:30:00",
       isOnline: true,
-      permissions: []
+      permissions: [],
     },
     {
       id: 2,
@@ -57,14 +55,14 @@ const UsersList: React.FC = () => {
         displayName: "کاربر عادی",
         level: 1,
         color: "blue",
-        permissions: []
+        permissions: [],
       },
       status: "active",
       planType: "basic",
       joinDate: "2024-02-20",
       lastLogin: "2024-09-18T15:45:00",
       isOnline: false,
-      permissions: []
+      permissions: [],
     },
     {
       id: 3,
@@ -77,14 +75,14 @@ const UsersList: React.FC = () => {
         displayName: "ویرایشگر",
         level: 2,
         color: "green",
-        permissions: []
+        permissions: [],
       },
       status: "inactive",
       planType: "premium",
       joinDate: "2024-01-10",
       lastLogin: "2024-09-10T08:20:00",
       isOnline: false,
-      permissions: []
+      permissions: [],
     },
     {
       id: 4,
@@ -97,14 +95,14 @@ const UsersList: React.FC = () => {
         displayName: "کاربر عادی",
         level: 1,
         color: "blue",
-        permissions: []
+        permissions: [],
       },
       status: "active",
       planType: "free",
       joinDate: "2024-03-05",
       lastLogin: "2024-09-19T09:15:00",
       isOnline: true,
-      permissions: []
+      permissions: [],
     },
     {
       id: 5,
@@ -117,14 +115,14 @@ const UsersList: React.FC = () => {
         displayName: "کاربر عادی",
         level: 1,
         color: "blue",
-        permissions: []
+        permissions: [],
       },
       status: "suspended",
       planType: "basic",
       joinDate: "2024-02-28",
       lastLogin: "2024-09-05T14:30:00",
       isOnline: false,
-      permissions: []
+      permissions: [],
     },
   ];
 
@@ -146,20 +144,43 @@ const UsersList: React.FC = () => {
   const getStatusBadge = (status: UserStatus) => {
     switch (status) {
       case "active":
-        return <Badge variant="success" size="sm">فعال</Badge>;
+        return (
+          <Badge variant="success" size="sm">
+            فعال
+          </Badge>
+        );
       case "inactive":
-        return <Badge variant="default" size="sm">غیرفعال</Badge>;
+        return (
+          <Badge variant="default" size="sm">
+            غیرفعال
+          </Badge>
+        );
       case "suspended":
-        return <Badge variant="danger" size="sm">مسدود</Badge>;
+        return (
+          <Badge variant="danger" size="sm">
+            مسدود
+          </Badge>
+        );
       case "pending":
-        return <Badge variant="warning" size="sm">در انتظار</Badge>;
+        return (
+          <Badge variant="warning" size="sm">
+            در انتظار
+          </Badge>
+        );
       default:
-        return <Badge variant="default" size="sm">{status}</Badge>;
+        return (
+          <Badge variant="default" size="sm">
+            {status}
+          </Badge>
+        );
     }
   };
 
   const getRoleBadge = (role: UserRole) => {
-    const colorMap: Record<string, "primary" | "success" | "danger" | "warning" | "info"> = {
+    const colorMap: Record<
+      string,
+      "primary" | "success" | "danger" | "warning" | "info"
+    > = {
       red: "danger",
       green: "success",
       blue: "primary",
@@ -173,10 +194,11 @@ const UsersList: React.FC = () => {
     );
   };
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.username.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = !selectedRole || user.role.name === selectedRole;
     const matchesStatus = !selectedStatus || user.status === selectedStatus;
 
@@ -212,9 +234,9 @@ const UsersList: React.FC = () => {
   });
 
   const handleSelectUser = (userId: number) => {
-    setSelectedUsers(prev =>
+    setSelectedUsers((prev) =>
       prev.includes(userId)
-        ? prev.filter(id => id !== userId)
+        ? prev.filter((id) => id !== userId)
         : [...prev, userId]
     );
   };
@@ -223,24 +245,26 @@ const UsersList: React.FC = () => {
     if (selectedUsers.length === sortedUsers.length) {
       setSelectedUsers([]);
     } else {
-      setSelectedUsers(sortedUsers.map(user => user.id));
+      setSelectedUsers(sortedUsers.map((user) => user.id));
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('fa-IR');
+    return new Date(dateString).toLocaleDateString("fa-IR");
   };
 
   const formatLastLogin = (dateString?: string) => {
     if (!dateString) return "هرگز";
     const date = new Date(dateString);
     const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    const diffInHours = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
+    );
 
     if (diffInHours < 1) return "کمتر از یک ساعت پیش";
     if (diffInHours < 24) return `${diffInHours} ساعت پیش`;
     if (diffInHours < 24 * 7) return `${Math.floor(diffInHours / 24)} روز پیش`;
-    return date.toLocaleDateString('fa-IR');
+    return date.toLocaleDateString("fa-IR");
   };
 
   return (
@@ -255,13 +279,6 @@ const UsersList: React.FC = () => {
             </p>
           </div>
           <div className="flex items-center space-x-3 space-x-reverse">
-            <Button
-              variant="outline"
-              size="lg"
-              icon={<FunnelSimple size={20} />}
-              onClick={() => setShowBulkActions(!showBulkActions)}>
-              فیلترها
-            </Button>
             <Button
               variant="primary"
               size="lg"
@@ -306,7 +323,9 @@ const UsersList: React.FC = () => {
               variant="ghost"
               size="lg"
               icon={<ArrowsDownUp size={20} />}
-              onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
+              onClick={() =>
+                setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+              }>
               مرتب‌سازی
             </Button>
           </div>
@@ -318,7 +337,7 @@ const UsersList: React.FC = () => {
                 <div className="text-blue-300">
                   {selectedUsers.length} کاربر انتخاب شده
                 </div>
-                <div className="flex items-center space-x-2 space-x-reverse">
+                <div className="flex items-center gap-3">
                   <Button variant="outline" size="sm">
                     تغییر نقش گروهی
                   </Button>
@@ -337,14 +356,17 @@ const UsersList: React.FC = () => {
 
       {/* Users Table Card */}
       <div className="bg-gray-800 rounded-2xl shadow-sm border border-gray-700 p-6">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto dark-scrollbar">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-600">
                 <th className="text-right py-3 px-4 font-semibold text-gray-300 w-12">
                   <input
                     type="checkbox"
-                    checked={selectedUsers.length === sortedUsers.length && sortedUsers.length > 0}
+                    checked={
+                      selectedUsers.length === sortedUsers.length &&
+                      sortedUsers.length > 0
+                    }
                     onChange={handleSelectAll}
                     className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:outline-none"
                   />
@@ -411,12 +433,8 @@ const UsersList: React.FC = () => {
                   <td className="py-4 px-4 text-gray-400 font-mono text-sm">
                     #{user.id}
                   </td>
-                  <td className="py-4 px-4">
-                    {getRoleBadge(user.role)}
-                  </td>
-                  <td className="py-4 px-4">
-                    {getStatusBadge(user.status)}
-                  </td>
+                  <td className="py-4 px-4">{getRoleBadge(user.role)}</td>
+                  <td className="py-4 px-4">{getStatusBadge(user.status)}</td>
                   <td className="py-4 px-4 text-gray-400 text-sm">
                     {formatDate(user.joinDate)}
                   </td>
@@ -429,7 +447,9 @@ const UsersList: React.FC = () => {
                         variant="ghost"
                         size="sm"
                         icon={<Eye size={16} />}
-                        onClick={() => navigate(`/user-management/profile/${user.id}`)}
+                        onClick={() =>
+                          navigate(`/user-management/profile/${user.id}`)
+                        }
                         title="مشاهده و ویرایش پروفایل"
                       />
                       <Button

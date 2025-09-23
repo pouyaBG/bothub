@@ -284,7 +284,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        <nav className="p-4 space-y-2 flex-1 overflow-y-auto overflow-x-hidden">
+        <nav className="p-4 space-y-2 flex-1 overflow-y-auto overflow-x-hidden dark-scrollbar">
           {menuItems.map((item) => renderMenuItem(item))}
         </nav>
 

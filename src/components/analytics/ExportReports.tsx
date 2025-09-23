@@ -83,7 +83,7 @@ const ExportReports: React.FC<ExportReportsProps> = ({
                     frequency: e.target.value as 'weekly' | 'monthly',
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder:text-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="weekly">هفتگی</option>
                 <option value="monthly">ماهانه</option>
@@ -101,7 +101,7 @@ const ExportReports: React.FC<ExportReportsProps> = ({
                   setScheduleConfig({ ...scheduleConfig, email: e.target.value })
                 }
                 placeholder="example@email.com"
-                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder:text-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
@@ -118,14 +118,14 @@ const ExportReports: React.FC<ExportReportsProps> = ({
                     reportType: e.target.value as 'summary' | 'detailed',
                   })
                 }
-                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white placeholder:text-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="summary">خلاصه</option>
                 <option value="detailed">تفصیلی</option>
               </select>
             </div>
 
-            <div className="flex space-x-2 space-x-reverse">
+            <div className="flex gap-3">
               <Button type="submit" variant="primary" size="sm" fullWidth>
                 ذخیره
               </Button>

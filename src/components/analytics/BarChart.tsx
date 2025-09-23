@@ -1,6 +1,5 @@
 import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import ReactECharts from 'echarts-for-react';
 
 interface BarChartProps {
   data: Array<{ name: string; value: number; [key: string]: any }>;
@@ -12,84 +11,82 @@ const BarChart: React.FC<BarChartProps> = ({ data, color = '#3b82f6', height = 3
   const categories = data.map(item => item.name);
   const seriesData = data.map(item => item.value);
 
-  const options: Highcharts.Options = {
-    chart: {
-      type: 'column',
-      height: height,
-      backgroundColor: 'transparent',
-      spacing: [20, 20, 20, 20]
+  const option = {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#ffffff',
+      borderColor: '#e5e7eb',
+      borderWidth: 1,
+      borderRadius: 8,
+      textStyle: {
+        fontSize: 12,
+        color: '#374151'
+      },
+      shadowColor: 'rgba(0, 0, 0, 0.1)',
+      shadowBlur: 6,
+      shadowOffsetX: 0,
+      shadowOffsetY: 4
     },
-    title: {
-      text: undefined
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      top: '3%',
+      containLabel: true
     },
     xAxis: {
-      categories: categories,
-      gridLineWidth: 0,
-      lineWidth: 0,
-      tickWidth: 0,
-      labels: {
-        style: {
-          color: '#6b7280',
-          fontSize: '12px'
-        }
+      type: 'category',
+      data: categories,
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#6b7280',
+        fontSize: 12
       }
     },
     yAxis: {
-      title: {
-        text: undefined
+      type: 'value',
+      axisLine: {
+        show: false
       },
-      gridLineColor: '#f0f0f0',
-      gridLineDashStyle: 'Dash',
-      lineWidth: 0,
-      tickWidth: 0,
-      labels: {
-        style: {
-          color: '#6b7280',
-          fontSize: '12px'
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#6b7280',
+        fontSize: 12
+      },
+      splitLine: {
+        lineStyle: {
+          color: '#f0f0f0',
+          type: 'dashed'
         }
       }
-    },
-    tooltip: {
-      backgroundColor: '#ffffff',
-      borderColor: '#e5e7eb',
-      borderRadius: 8,
-      shadow: {
-        color: 'rgba(0, 0, 0, 0.1)',
-        offsetX: 0,
-        offsetY: 4,
-        opacity: 0.1,
-        width: 6
-      },
-      style: {
-        fontSize: '12px'
-      }
-    },
-    plotOptions: {
-      column: {
-        color: color,
-        borderRadius: 4,
-        borderWidth: 0,
-        pointPadding: 0.1,
-        groupPadding: 0.2,
-        dataLabels: {
-          enabled: false
-        }
-      }
-    },
-    legend: {
-      enabled: false
-    },
-    credits: {
-      enabled: false
     },
     series: [{
-      type: 'column',
       name: 'مقدار',
-      data: seriesData
+      type: 'bar',
+      data: seriesData,
+      itemStyle: {
+        color: color,
+        borderRadius: [4, 4, 0, 0]
+      },
+      barWidth: '60%'
     }]
   };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <ReactECharts
+      option={option}
+      style={{ height: `${height}px`, width: '100%' }}
+      opts={{ renderer: 'canvas' }}
+    />
+  );
 };
 
 export default BarChart;

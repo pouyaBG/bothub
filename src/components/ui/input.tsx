@@ -38,9 +38,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       "transition-all duration-200 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
-      default: "border border-gray-300 bg-white rounded-lg",
-      filled: "border-0 bg-gray-100 rounded-lg focus:bg-white",
-      outlined: "border-2 border-gray-300 bg-transparent rounded-lg",
+      default: "border border-gray-600 bg-gray-800 text-white placeholder:text-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+      filled: "border-0 bg-gray-700 text-white placeholder:text-gray-300 rounded-lg focus:bg-gray-600",
+      outlined: "border-2 border-gray-600 bg-transparent text-white placeholder:text-gray-300 rounded-lg focus:border-blue-500",
     };
 
     const sizes = {
@@ -81,7 +81,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       }
 
       if (error) {
-        classes += " border-red-500";
+        classes += " border-red-500 focus:border-red-500 focus:ring-red-500";
       }
 
       return classes;
@@ -92,7 +92,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-gray-700 mb-2">
+            className="block text-sm font-medium text-gray-300 mb-2">
             {label}
           </label>
         )}
@@ -120,7 +120,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               className={cn(
                 "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400",
                 onRightIconClick
-                  ? "cursor-pointer hover:text-gray-600"
+                  ? "cursor-pointer hover:text-gray-300"
                   : "pointer-events-none",
                 iconSizes[inputSize]
               )}
@@ -130,10 +130,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
 
-        {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
+        {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
 
         {helper && !error && (
-          <p className="mt-1 text-sm text-gray-500">{helper}</p>
+          <p className="mt-1 text-sm text-gray-400">{helper}</p>
         )}
       </div>
     );

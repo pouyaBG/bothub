@@ -1,6 +1,5 @@
 import React from 'react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import ReactECharts from 'echarts-for-react';
 
 interface PieChartProps {
   data: Array<{ name: string; value: number; color: string }>;
@@ -10,70 +9,67 @@ interface PieChartProps {
 const PieChart: React.FC<PieChartProps> = ({ data, height = 300 }) => {
   const seriesData = data.map(item => ({
     name: item.name,
-    y: item.value,
-    color: item.color
+    value: item.value,
+    itemStyle: {
+      color: item.color
+    }
   }));
 
-  const options: Highcharts.Options = {
-    chart: {
-      type: 'pie',
-      height: height,
-      backgroundColor: 'transparent',
-      spacing: [20, 20, 20, 20]
-    },
-    title: {
-      text: undefined
-    },
+  const option = {
+    backgroundColor: 'transparent',
     tooltip: {
+      trigger: 'item',
       backgroundColor: '#ffffff',
       borderColor: '#e5e7eb',
+      borderWidth: 1,
       borderRadius: 8,
-      shadow: {
-        color: 'rgba(0, 0, 0, 0.1)',
-        offsetX: 0,
-        offsetY: 4,
-        opacity: 0.1,
-        width: 6
+      textStyle: {
+        fontSize: 12,
+        color: '#374151'
       },
-      style: {
-        fontSize: '12px'
-      },
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-      point: {
-        valueSuffix: '%'
-      }
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: false
-        },
-        showInLegend: true
-      }
+      shadowColor: 'rgba(0, 0, 0, 0.1)',
+      shadowBlur: 6,
+      shadowOffsetX: 0,
+      shadowOffsetY: 4,
+      formatter: '{a}: <br/>{b}: {c} ({d}%)'
     },
     legend: {
-      align: 'center',
-      verticalAlign: 'bottom',
-      itemStyle: {
+      bottom: 0,
+      left: 'center',
+      textStyle: {
         color: '#6b7280',
-        fontSize: '12px'
+        fontSize: 12
       }
     },
-    credits: {
-      enabled: false
-    },
     series: [{
-      type: 'pie',
       name: 'درصد',
-      data: seriesData
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['50%', '40%'],
+      data: seriesData,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      label: {
+        show: false
+      },
+      labelLine: {
+        show: false
+      }
     }]
   };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return (
+    <ReactECharts
+      option={option}
+      style={{ height: `${height}px`, width: '100%' }}
+      opts={{ renderer: 'canvas' }}
+    />
+  );
 };
 
 export default PieChart;
