@@ -1,18 +1,18 @@
+import { Eye, EyeSlash, Lock, User } from "phosphor-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeSlash, Envelope, Lock } from "phosphor-react";
 import logo from "../../assets/logo.png";
-import { useAuth } from "../../context/AuthContext";
 import AnimatedBackground from "../../components/common/AnimatedBackground";
+import { useAuth } from "../../context/AuthContext";
 
 interface LoginFormData {
-  email: string;
+  username: string;
   password: string;
 }
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
+    username: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +33,12 @@ const Login = () => {
     setError("");
 
     try {
-      const success = await login(formData.email, formData.password);
+      const success = await login(formData.username, formData.password);
       if (success) {
-        navigate("/", { replace: true });
+        // Small delay to ensure auth state is updated before navigation
+        setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 100);
       } else {
         setError("نام کاربری یا رمز عبور اشتباه است!");
       }
@@ -58,15 +61,6 @@ const Login = () => {
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="mt-4 p-3 bg-blue-500/20 rounded-lg border border-blue-400/30">
-            <p className="text-xs text-blue-200 text-center">
-              <strong>حساب آزمایشی:</strong>
-              <br />
-              ایمیل: admin@example.com
-              <br />
-              رمز عبور: admin123
-            </p>
-          </div>
         </div>
 
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
@@ -79,24 +73,23 @@ const Login = () => {
             <div className="space-y-4">
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="username"
                   className="block text-sm font-medium text-white mb-2">
-                  ایمیل
+                  نام کاربری
                 </label>
                 <div className="relative">
-                  <Envelope
+                  <User
                     size={18}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                   />
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
+                    id="username"
+                    name="username"
+                    type="text"
+                    autoComplete="username"
                     className="appearance-none rounded-lg w-full pr-10 py-3 px-4 bg-white/20 border border-white/30 placeholder-white/60 text-white focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent backdrop-blur-sm"
-                    placeholder="example@domain.com"
-                    value={formData.email}
+                    placeholder="نام کاربری خود را وارد کنید"
+                    value={formData.username}
                     onChange={handleInputChange}
                   />
                 </div>

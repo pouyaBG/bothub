@@ -32,9 +32,9 @@ const TopBar: React.FC<TopBarProps> = ({
   const navigate = useNavigate();
   const { user: authUser, logout } = useAuth();
 
-  const currentUser = authUser || {
-    name: "کاربر نمونه",
-    email: "user@example.com",
+  const currentUser = {
+    name: authUser?.name || authUser?.full_name || "کاربر نمونه",
+    email: authUser?.email || "user@example.com",
   };
 
   const toggleDropdown = () => {

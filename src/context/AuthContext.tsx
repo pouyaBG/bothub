@@ -5,19 +5,13 @@ import React, {
   useEffect,
   useState,
 } from "react";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role?: string;
-}
+import { useLogin, useLogout, type User } from "../services/authService";
 
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -31,6 +25,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const loginMutation = useLogin();
+  const logoutMutation = useLogout();
+
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
     const checkAuthStatus = () => {
@@ -39,13 +36,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const token = localStorage.getItem("authToken");
 
         if (storedUser && token) {
-          setUser(JSON.parse(storedUser));
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
         }
       } catch (error) {
         console.error("Error checking auth status:", error);
         // Clear invalid data
         localStorage.removeItem("user");
         localStorage.removeItem("authToken");
+        localStorage.removeItem("refreshToken");
       } finally {
         setIsLoading(false);
       }
@@ -54,49 +53,40 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     checkAuthStatus();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
-
+  const login = async (username: string, password: string): Promise<boolean> => {
     try {
-      // Mock authentication - replace with actual API call
-      if (email === "admin@example.com" && password === "admin123") {
-        const mockUser: User = {
-          id: "1",
-          name: "مدیر سیستم",
-          email: "admin@example.com",
-          role: "admin",
-        };
+      const result = await loginMutation.mutateAsync({ username, password });
 
-        // Mock token
-        const mockToken = "mock-jwt-token-" + Date.now();
-
-        // Store in localStorage
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        localStorage.setItem("authToken", mockToken);
-
-        setUser(mockUser);
-        setIsLoading(false);
+      if (result) {
+        // The user might already be set by the React Query onSuccess callback
+        // or we'll use the data from the result
+        const userData = result.user || JSON.parse(localStorage.getItem("user") || "null");
+        if (userData) {
+          setUser(userData);
+        }
         return true;
       } else {
-        setIsLoading(false);
         return false;
       }
     } catch (error) {
       console.error("Login error:", error);
-      setIsLoading(false);
       return false;
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("authToken");
+  const logout = async () => {
+    try {
+      await logoutMutation.mutateAsync();
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      setUser(null);
+    }
   };
 
   const value: AuthContextType = {
     user,
-    isLoading,
+    isLoading: isLoading || loginMutation.isPending || logoutMutation.isPending,
     isAuthenticated: !!user,
     login,
     logout,

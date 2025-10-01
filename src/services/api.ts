@@ -1,5 +1,5 @@
 // Base API configuration
-const API_BASE_URL = "http://localhost:3001/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001/api";
 
 // Generic API request function
 export const apiRequest = async <T>(
